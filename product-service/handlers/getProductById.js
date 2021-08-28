@@ -1,8 +1,10 @@
 'use strict';
-let productList = require("./productList.json");
+
+const { getMockData } = require("./services/getMockData");
 
 module.exports.main = async (event) => {
 
+    let productList = await getMockData();
     let productId = event.pathParameters.productId;
     let result = productList.find(el =>  {
         return el.id == productId;

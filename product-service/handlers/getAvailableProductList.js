@@ -1,7 +1,10 @@
 'use strict';
-let productList = require("./productList.json");
+
+const { getMockData } = require("./services/getMockData");
 
 module.exports.main = async (event) => {
+  let productList = await getMockData();
+
   return {
     statusCode: 200,
     headers: {
