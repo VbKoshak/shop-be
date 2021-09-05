@@ -1,0 +1,19 @@
+{
+    "name": "product-service",
+    "description": "",
+    "version": "0.1.0",
+    "devDependencies": {
+        "jest": "^27.1.0",
+        "serverless": "^2.57.0",
+        "serverless-webpack": "^5.5.3",
+        "webpack-cli": "^4.8.0"
+    },
+    "scripts": {
+        "test": "jest"
+    },
+    "dependencies": {
+        "webpack-node-externals": "^3.0.0",
+        "serverless-webpack": "^5.5.3",
+        "webpack": "^5.52.0"
+    }
+}
