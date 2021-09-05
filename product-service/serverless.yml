@@ -1,0 +1,49 @@
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    includeModules: false # Node modules configuration for packaging
+    packager: 'npm' # Packager that will be used to package your external modules
+    excludeFiles: handlers/tests/*.test.js # Provide a glob for files to ignore
+
+package:
+  individually: true
+
+service: product-service
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: us-east-2
+
+functions:
+  products:
+    handler: handlers/getProductList.main
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true
+  availableProducts:
+    handler: handlers/getAvailableProductList.main
+    events: 
+      - http:
+          path: products/available
+          method: get
+          cors: true
+  productById:
+    handler: handlers/getProductById.main
+    events:
+      - http:
+          path: products/{productId}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                productId: true
