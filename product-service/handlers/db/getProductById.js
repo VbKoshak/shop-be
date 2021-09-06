@@ -7,16 +7,15 @@ const {
     dbOptions
 } = require('./services/getDBOptions');
 
-const query = "select p.id, p.title, p.description, p.price, s.count from products p left join  stocks s on p.id = s.product_id where p.id='$1'";
-
 module.exports.main = async (event) => {
     const client = new Client(dbOptions);
     await client.connect();
 
     try {
-        const productList = await client.query(query, [event.pathParameters.productId]).rows;
+        const query = `select p.id, p.title, p.description, p.price, s.count from products p left join  stocks s on p.id = s.product_id where p.id='${event.pathParameters.productId}'`;
+        const result = await client.query(query);
 
-        if (!result) {
+        if (!result.rows) {
             return {
                 statusCode: 404,
                 headers: {
@@ -34,7 +33,7 @@ module.exports.main = async (event) => {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true,
                 },
-                body: JSON.stringify(productList),
+                body: JSON.stringify(result.rows[0]),
             };
         }
     } catch (err) {

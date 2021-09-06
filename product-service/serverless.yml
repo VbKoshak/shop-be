@@ -29,21 +29,21 @@ provider:
     PG_PASSWORD: superAdmin
 
 functions:
-  products:
+  getProducts:
     handler: handlers/db/getProductList.main
     events:
       - http:
           path: products
           method: get
           cors: true
-  availableProducts:
+  getAvailableProducts:
     handler: handlers/db/getAvailableProductList.main
     events: 
       - http:
           path: products/available
           method: get
           cors: true
-  productById:
+  getProductById:
     handler: handlers/db/getProductById.main
     events:
       - http:
@@ -54,3 +54,10 @@ functions:
             parameters:
               paths:
                 productId: true
+  postProduct:
+    handler: handlers/db/postProduct.main
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true

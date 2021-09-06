@@ -8,6 +8,7 @@ const query = "select p.id, p.title, p.description, p.price, s.count from produc
 module.exports.main = async (event) => {
     const client = new Client(dbOptions);
     await client.connect();
+    console.log(event);
 
     try {
         const productList = await client.query(query)
