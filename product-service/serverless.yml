@@ -22,11 +22,11 @@ provider:
   region: us-east-2
 
   environment: 
-    PG_HOST: postgress-task4.ciqc4bkqwwch.us-east-2.rds.amazonaws.com
-    PG_PORT: 5432
-    PG_DATABASE: task4
-    PG_USERNAME: postgres
-    PG_PASSWORD: superAdmin
+    PG_HOST: <host_here>
+    PG_PORT: <port_here>
+    PG_DATABASE: <db_name_here>
+    PG_USERNAME: <username_here>
+    PG_PASSWORD: <password_here>
 
 functions:
   getProducts:
