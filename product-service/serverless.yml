@@ -1,12 +1,12 @@
-plugins:
-  - serverless-webpack
+# plugins:
+#   - serverless-webpack
 
-custom:
-  webpack:
-    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
-    includeModules: false # Node modules configuration for packaging
-    packager: 'npm' # Packager that will be used to package your external modules
-    excludeFiles: handlers/tests/*.test.js # Provide a glob for files to ignore
+# custom:
+#   webpack:
+#     webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+#     includeModules: false # Node modules configuration for packaging
+#     packager: 'npm' # Packager that will be used to package your external modules
+#     excludeFiles: handlers/tests/*.test.js # Provide a glob for files to ignore
 
 package:
   individually: true
@@ -21,23 +21,30 @@ provider:
   stage: dev
   region: us-east-2
 
+  environment: 
+    PG_HOST: postgress-task4.ciqc4bkqwwch.us-east-2.rds.amazonaws.com
+    PG_PORT: 5432
+    PG_DATABASE: task4
+    PG_USERNAME: postgres
+    PG_PASSWORD: superAdmin
+
 functions:
   products:
-    handler: handlers/getProductList.main
+    handler: handlers/db/getProductList.main
     events:
       - http:
           path: products
           method: get
           cors: true
   availableProducts:
-    handler: handlers/getAvailableProductList.main
+    handler: handlers/db/getAvailableProductList.main
     events: 
       - http:
           path: products/available
           method: get
           cors: true
   productById:
-    handler: handlers/getProductById.main
+    handler: handlers/db/getProductById.main
     events:
       - http:
           path: products/{productId}

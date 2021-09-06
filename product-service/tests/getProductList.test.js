@@ -1,6 +1,6 @@
 const { expect } = require('@jest/globals')
 const { test } = require('jest-circus')
-const { main } = require('./../handlers/getProductList')
+const { main } = require('./../handlers/mock/getProductList')
 
 describe('Unit testing products', () => {
     it('Verify response is defined', () => {

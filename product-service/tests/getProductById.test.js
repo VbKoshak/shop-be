@@ -1,6 +1,6 @@
 const { expect } = require('@jest/globals')
 const { test } = require('jest-circus')
-const { main } = require('./../handlers/getProductById')
+const { main } = require('./../handlers/mock/getProductById')
 
 describe('Unit testing product by id Existing product', () => {
 

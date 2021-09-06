@@ -12,8 +12,10 @@
         "test": "jest"
     },
     "dependencies": {
-        "webpack-node-externals": "^3.0.0",
+        "pg": "^8.7.1",
+        "pg-native": "^3.0.0",
         "serverless-webpack": "^5.5.3",
-        "webpack": "^5.52.0"
+        "webpack": "^5.52.0",
+        "webpack-node-externals": "^3.0.0"
     }
 }
