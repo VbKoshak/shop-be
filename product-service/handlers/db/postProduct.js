@@ -36,7 +36,7 @@ module.exports.main = async (event) => {
     try {
         client = new Client(dbOptions);
         await client.connect();
-    } catch (ex) {
+    } catch (err) {
         console.error('Error appeared on connecting to db: ' + err);
         return {
             statusCode: 500,
@@ -57,8 +57,6 @@ module.exports.main = async (event) => {
         price = validateDouble(price);
         count = validateInt(count);
 
-        const queryProducts = `insert into products (title, description, price) values('${title}', '${description}', ${price}) RETURNING *`;
-
         if ( isFalse(title) || isFalse(description) || isFalse(price) || isFalse(count)) {
             console.error("Error in request data: " + JSON.stringify({
                 title,
@@ -78,10 +76,19 @@ module.exports.main = async (event) => {
             };
         }
 
-        const productsRes = await client.query(queryProducts);
-        const id = productsRes.rows[0].id;
-        const queryStocks = `insert into stocks (\"product_id\", \"count\") values('${id}', ${count})`;
-        await client.query(queryStocks);
+        let id;
+        try {
+            await client.query('BEGIN')
+            const queryProducts = `insert into products (title, description, price) values('${title}', '${description}', ${price}) RETURNING *`;
+            const productsRes = await client.query(queryProducts);
+            id = productsRes.rows[0].id;
+            const queryStocks = `insert into stocks (\"product_id\", \"count\") values('${id}', ${count})`;
+            await client.query(queryStocks);
+            await client.query('COMMIT');
+        } catch (err) {
+            await client.query('ROLLBACK');
+            throw(err);
+        }
 
 
         return {
@@ -95,7 +102,7 @@ module.exports.main = async (event) => {
             }),
         };
     } catch (err) {
-        console.error('Error for db request: ' + err);
+        console.error('Error in db request: ' + err);
         return {
             statusCode: 500,
             headers: {
