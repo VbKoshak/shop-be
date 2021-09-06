@@ -20,7 +20,7 @@ module.exports.main = async (event) => {
                 'Access-Control-Allow-Credentials': true,
             },
             body: JSON.stringify({
-                "message": "Some error accured on server, try again later"
+                message: "Some error accured on server, try again later"
             }),
         };
     }
@@ -44,7 +44,9 @@ module.exports.main = async (event) => {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': true,
             },
-            body: JSON.stringify({"message": "Some error accured on server, try again later"}),
+            body: JSON.stringify({
+                message: "Some error accured on server, try again later"
+            }),
         };
     } finally {
         client.end();

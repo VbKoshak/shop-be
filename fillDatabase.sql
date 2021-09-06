@@ -17,7 +17,7 @@ create table if not exists stocks (
 
 
 insert into products (title, description, price) values
-('Auto 1', 'Fast and furious', 1500),
+('Auto 1', 'Fast and furious', 800),
 ('Auto 2', 'Braaah', 300),
 ('Auto 3', 'Grandad''s car', 530.5)
 

@@ -72,7 +72,9 @@ module.exports.main = async (event) => {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': true,
                 },
-                body: JSON.stringify("Error in request body!"),
+                body: JSON.stringify({
+                    message: "Error in request body!"
+                }),
             };
         }
 
